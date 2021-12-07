@@ -11,7 +11,7 @@ Onedrive for business cli
 Quick setup
 ---
 1.獲取ClientID、client_secret
-
+註冊應用程式[https://portal.azure.com/#blade/Microsoft_AAD_RegisteredApps/ApplicationsListBlade]
 
 安裝依賴項：
 ```python
