@@ -2,7 +2,7 @@ Onedrive for business cli
 ============
   開發環境：Windows 11-Python 3.10.0、Ubuntu 20.04.3-Python 3.10.0
  
- 開發進度
+開發進度
 ---
 - [x] 獲取 access token
 - [x] 獲取使用者列表(需擁有管理員權限)
@@ -11,8 +11,8 @@ Onedrive for business cli
 Quick setup
 ---
 
-  1.獲取ClientID、client_secret
-  [註冊應用程式](https://portal.azure.com/#blade/Microsoft_AAD_RegisteredApps/ApplicationsListBlade)
+1.獲取ClientID、client_secret<br>
+[註冊應用程式](https://portal.azure.com/#blade/Microsoft_AAD_RegisteredApps/ApplicationsListBlade)
 
 安裝依賴項：
 ```python
