@@ -31,22 +31,16 @@ def refresh():
     f.close()
     return access_token
 
-if float(sol) + 1800 < time.time():
+
+if float(sol) + 3600 < time.time():
     access_token = refresh()
+
 headers = {'Authorization': 'Bearer '+access_token}
-print('輸入資料夾ID(根目錄"root")或路徑(根目錄"root:")：',end='')
-path = input()
-if path == "root:":
-    url = 'https://graph.microsoft.com/v1.0/me/drive/root/children'
-elif "root:" in path:
-    url = 'https://graph.microsoft.com/v1.0/me/drive/'+path+':/children'
-else:
-    url = 'https://graph.microsoft.com/v1.0/me/drive/items/'+path+'/children'
-if requests.get(url, headers=headers).status_code != 200:
-    print(requests.get(url, headers=headers).text)
-filelistjson = json.loads(requests.get(url, headers=headers).text)
-for i in filelistjson['value']:
-    if "folder" in i:
-        print(i['id'],'dir',i['name'])
-    else:
-        print(i['id'],'file',i['name'])
+url = 'https://graph.microsoft.com/v1.0/me/drive/recent'
+res = json.loads(requests.get(url, headers=headers).text)
+print('輸入欲顯示的項目數(最多200項)：',end='')
+x = input()
+for i in range(0,int(x)):
+    print(res['value'][i]['id']+' ',end='')
+    print(res['value'][i]['name']+' ',end='')
+    print(str(round(float(res['value'][i]['remoteItem']['size']/1024/1024/1024),3))+'GB')

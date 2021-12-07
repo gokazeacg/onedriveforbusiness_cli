@@ -13,9 +13,7 @@ client_id = fread.split(',')[2]
 client_secret = fread.split(',')[3]
 access_token = fread.split(',')[4]
 refresh_token = fread.split(',')[5]
-
-def refresh():
-    global tenant_ID, client_id, client_secret, access_token, refresh_token
+if float(sol) + 1600 < time.time():
     sol = time.time()
     url = 'https://login.microsoftonline.com/common/oauth2/v2.0/token'
     HEADERS = {'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}
@@ -29,24 +27,3 @@ def refresh():
     f = open('.token','w')
     f.write(x)
     f.close()
-    return access_token
-
-if float(sol) + 1800 < time.time():
-    access_token = refresh()
-headers = {'Authorization': 'Bearer '+access_token}
-print('輸入資料夾ID(根目錄"root")或路徑(根目錄"root:")：',end='')
-path = input()
-if path == "root:":
-    url = 'https://graph.microsoft.com/v1.0/me/drive/root/children'
-elif "root:" in path:
-    url = 'https://graph.microsoft.com/v1.0/me/drive/'+path+':/children'
-else:
-    url = 'https://graph.microsoft.com/v1.0/me/drive/items/'+path+'/children'
-if requests.get(url, headers=headers).status_code != 200:
-    print(requests.get(url, headers=headers).text)
-filelistjson = json.loads(requests.get(url, headers=headers).text)
-for i in filelistjson['value']:
-    if "folder" in i:
-        print(i['id'],'dir',i['name'])
-    else:
-        print(i['id'],'file',i['name'])

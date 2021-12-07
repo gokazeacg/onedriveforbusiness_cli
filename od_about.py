@@ -31,22 +31,15 @@ def refresh():
     f.close()
     return access_token
 
-if float(sol) + 1800 < time.time():
+
+if float(sol) + 3600 < time.time():
     access_token = refresh()
+
+
 headers = {'Authorization': 'Bearer '+access_token}
-print('輸入資料夾ID(根目錄"root")或路徑(根目錄"root:")：',end='')
-path = input()
-if path == "root:":
-    url = 'https://graph.microsoft.com/v1.0/me/drive/root/children'
-elif "root:" in path:
-    url = 'https://graph.microsoft.com/v1.0/me/drive/'+path+':/children'
-else:
-    url = 'https://graph.microsoft.com/v1.0/me/drive/items/'+path+'/children'
-if requests.get(url, headers=headers).status_code != 200:
-    print(requests.get(url, headers=headers).text)
-filelistjson = json.loads(requests.get(url, headers=headers).text)
-for i in filelistjson['value']:
-    if "folder" in i:
-        print(i['id'],'dir',i['name'])
-    else:
-        print(i['id'],'file',i['name'])
+url = 'https://graph.microsoft.com/v1.0/me/drives'
+res = json.loads(requests.get(url, headers=headers).text)
+
+print('總空間：'+str(round(float(res['value'][0]['quota']['total']/1024/1024/1024),3))+'GB'+',',end='')
+print('已使用空間：'+str(round(float(res['value'][0]['quota']['used']/1024/1024/1024),3))+'GB'+',',end='')
+print('剩餘空間：'+str(round(float(res['value'][0]['quota']['remaining']/1024/1024/1024),3))+'GB')

@@ -31,22 +31,21 @@ def refresh():
     f.close()
     return access_token
 
-if float(sol) + 1800 < time.time():
+def get_id(path):
+    global headers
+    url = "https://graph.microsoft.com/v1.0/me/drive/"+path
+    retur = json.loads(requests.get(url, headers=headers).text)
+    if requests.get(url, headers=headers).status_code != 200:
+        print(requests.get(url, headers=headers).text)
+    print(retur['parentReference'])
+    print(retur['id'])
+    print(retur['@microsoft.graph.downloadUrl'])
+    return retur['id']
+
+if float(sol) + 3600 < time.time():
     access_token = refresh()
+
 headers = {'Authorization': 'Bearer '+access_token}
-print('輸入資料夾ID(根目錄"root")或路徑(根目錄"root:")：',end='')
+print('輸入檔案路徑(根目錄"root:")：',end='')
 path = input()
-if path == "root:":
-    url = 'https://graph.microsoft.com/v1.0/me/drive/root/children'
-elif "root:" in path:
-    url = 'https://graph.microsoft.com/v1.0/me/drive/'+path+':/children'
-else:
-    url = 'https://graph.microsoft.com/v1.0/me/drive/items/'+path+'/children'
-if requests.get(url, headers=headers).status_code != 200:
-    print(requests.get(url, headers=headers).text)
-filelistjson = json.loads(requests.get(url, headers=headers).text)
-for i in filelistjson['value']:
-    if "folder" in i:
-        print(i['id'],'dir',i['name'])
-    else:
-        print(i['id'],'file',i['name'])
+get_id(path)

@@ -31,22 +31,30 @@ def refresh():
     f.close()
     return access_token
 
+def get_id(path):
+    global headers
+    url = "https://graph.microsoft.com/v1.0/me/drive/"+path
+    retur = json.loads(requests.get(url, headers=headers).text)
+    if requests.get(url, headers=headers).status_code != 200:
+        print(requests.get(url, headers=headers).text)
+    return retur['id']
+
 if float(sol) + 1800 < time.time():
     access_token = refresh()
+
 headers = {'Authorization': 'Bearer '+access_token}
-print('輸入資料夾ID(根目錄"root")或路徑(根目錄"root:")：',end='')
+print('輸入資料夾路徑(根目錄"root:")：',end='')
 path = input()
-if path == "root:":
-    url = 'https://graph.microsoft.com/v1.0/me/drive/root/children'
-elif "root:" in path:
-    url = 'https://graph.microsoft.com/v1.0/me/drive/'+path+':/children'
+path = path.split('/')
+name = path[-1]
+del path[-1]
+path = '/'.join(path)
+if path == 'root:':
+    path = 'root'
+url = 'https://graph.microsoft.com/v1.0/me/drive/items/'+get_id(path)+'/children'
+data = {"name": name, "folder": { },"@microsoft.graph.conflictBehavior": "rename"}
+re = requests.post(url=url, headers=headers, json=data)
+if re.status_code == 201:
+    print(json.loads(re.text)['webUrl'])
 else:
-    url = 'https://graph.microsoft.com/v1.0/me/drive/items/'+path+'/children'
-if requests.get(url, headers=headers).status_code != 200:
-    print(requests.get(url, headers=headers).text)
-filelistjson = json.loads(requests.get(url, headers=headers).text)
-for i in filelistjson['value']:
-    if "folder" in i:
-        print(i['id'],'dir',i['name'])
-    else:
-        print(i['id'],'file',i['name'])
+    print(re.text)
