@@ -2,9 +2,12 @@ import requests
 import json
 from urllib import parse
 
-tenant_ID = '78e51081-e8e0-4b26-915d-fafa3c43023c'
-client_id = '486ef416-2ffc-42eb-8dd0-83e59b59bd8b'
-client_secret = 'ste7Q~617UmBomw8LEJzMxZV55.wBe06OFly5'
+print('輸入目錄 (租用戶) 識別碼：',end='')
+tenant_ID = str(input())
+print('輸入應用程式 (用戶端) 識別碼：',end='')
+client_id = str(input())
+print('輸入用戶端密碼：',end='')
+client_secret = str(input())
 
 url = 'https://login.microsoftonline.com/'+tenant_ID+'/oauth2/v2.0/authorize?client_id='+client_id+'&response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A4452%2F&response_mode=query&scope=https%3A%2F%2Fgraph.microsoft.com%2FFiles.ReadWrite'
 print('打開下列網址：'+url)
