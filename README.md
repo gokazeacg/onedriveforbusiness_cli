@@ -4,9 +4,8 @@ Onedrive for business cli
  
 開發進度
 ---
-- [x] 獲取 access token
-- [x] 獲取使用者列表(需擁有管理員權限)
-- [ ] 
+- [x] 自動更新 access token
+- [x] 
 
 Quick setup
 ---
