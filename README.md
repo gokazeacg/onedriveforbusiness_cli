@@ -6,6 +6,7 @@ Onedrive for business cli
 ---
 -[]
 
+Quick setup
 ---
 安裝依賴項：
 ```python
