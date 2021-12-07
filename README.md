@@ -9,13 +9,7 @@ Onedrive for business cli
 
 Quick setup
 ---
-獲取Telent_ID、Client_ID、client_secret<br>
-[註冊應用程式](https://portal.azure.com/#blade/Microsoft_AAD_RegisteredApps/ApplicationsListBlade)
-![firt step](https://upload.cc/i1/2021/12/07/JlnUNI.png)
-![second step](https://upload.cc/i1/2021/12/07/oiNrVn.jpg)
-![thired step](https://upload.cc/i1/2021/12/07/AJQsUw.jpg)
-![](https://upload.cc/i1/2021/12/07/nADOjq.jpg)
-![](https://upload.cc/i1/2021/12/07/ZvbwT6.jpg)
+[獲取Telent_ID、Client_ID、client_secret](https://github.com/gokazeacg/onedriveforbusiness_cli/blob/main/%E7%8D%B2%E5%8F%96Telent_ID%E3%80%81Client_ID%E3%80%81client_secret.md)
 
 安裝依賴項：
 ```python
