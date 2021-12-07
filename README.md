@@ -1,2 +1,2 @@
-Onedrive cli
+Onedrive for business cli
 ============
