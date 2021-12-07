@@ -4,7 +4,8 @@ Onedrive for business cli
 
  開發進度
 ---
--[x] 選擇使用者
+- [x] 選擇使用者
+- [x] Venus
 
 Quick setup
 ---
