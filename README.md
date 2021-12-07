@@ -15,6 +15,7 @@ Quick setup
 ![firt step](https://upload.cc/i1/2021/12/07/JlnUNI.png)
 ![second step](https://upload.cc/i1/2021/12/07/Kpv5FP.png)
 
+
 安裝依賴項：
 ```python
 python -m pip install -r requirements.txt
